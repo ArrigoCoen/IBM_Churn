@@ -104,8 +104,6 @@ def normalized_bar_plot(results_df):
     plt.legend(loc='center left', bbox_to_anchor=(1, 0.5))
     plt.show()
 
-def test_my_print():
-    print("functionaaaaa!")
-    return True
+
 
 
