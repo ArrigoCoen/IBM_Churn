@@ -88,7 +88,9 @@ sns.catplot(x="smoker", kind="count",hue = 'sex', palette=my_palette, data=df)
 
 #%%
 
+import os
 
+os.getcwd()
 
 #%%
 
