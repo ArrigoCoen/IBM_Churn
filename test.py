@@ -95,6 +95,35 @@ os.getcwd()
 #%%
 
 
+#%%
+column_trans.fit(X_train)
+
+
+
+#%%
+column_trans.get_feature_names_out()
+
+#%%
+
+
+model = grid_RF.best_params_['model']
+
+
+#%%
+
+#Feature ranking...
+feature_list = column_trans.get_feature_names_out()
+feature_imp = pd.Series(model.feature_importances_, index=feature_list).sort_values(ascending=False)
+# print(feature_imp)
+print(feature_imp.to_string())
+
+
+#%%
+satehu ohenc = OneHotEncoder();
+ohenc.fit(xtrain_lbl);
+
+
+ohenc.get_features_names(); x_cat_df.columns = ohenc.get_feature_names()
 
 #%%
 

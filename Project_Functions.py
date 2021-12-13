@@ -7,10 +7,38 @@ from Project_Functions import *
 # modulereload(Project_Functions)
 # from Project_Functions import *
 
+import Project_Functions
+import importlib
+importlib.reload(Project_Functions)
+
+
+
+modulereload(Project_Functions)
+from Project_Functions import *
+
+# import Project_Functions
+# import importlib
+# importlib.reload(Project_Functions)
+
+
 """
 
 
 
+
+def my_modulereload():
+    """
+    Use:
+        modulereload(Project_Functions)
+        from Project_Functions import *
+    :param modulename:
+    :return:
+    """
+    # https://stackoverflow.com/questions/18500283/how-do-you-reload-a-module-in-python-version-3-3-2
+
+    import Project_Functions
+    import importlib
+    importlib.reload(Project_Functions)
 
 def modulereload(modulename):
     """
@@ -231,4 +259,29 @@ def save_NN_sequential(model, model_name):
     file_path = Path().joinpath('Pickles', file_name + ".h5")
     print("The file ", file_path, "was save.")
     model.save(file_path)
+    return True
+
+
+def my_save_figure_feature_imortance(model, column_trans, X_train, name_fig='Bar_plot_RF_feature_importance'):
+    """
+    How to save the bar plot of feature importance
+    :param column_trans: column transformer
+    :param X_train: values to train our models
+    :param name_fig: name that the figure will have
+    :return:
+    """
+    import pandas as pd
+    import matplotlib.pyplot as plt
+    # We need first to fit our column transformer using X_train
+    # This is needed for getting the names that the column transformer asignes to each OHE column
+    column_trans.fit(X_train)
+    # Now we could get the list of names as feature_list
+    feature_list = column_trans.get_feature_names_out()
+    feature_imp = pd.Series(model.feature_importances_, index=feature_list).sort_values(ascending=False)
+    print(feature_imp.to_string())
+    # Let us now plot and save the plot of the feature importance
+    fig = plt.figure(figsize=(10,5))
+    # plt.title("Feature Importance")
+    feature_imp.plot(kind="bar", title="Feature Importance")
+    fig.savefig('Images/'+name_fig+'.jpg', bbox_inches='tight', dpi=150)
     return True
